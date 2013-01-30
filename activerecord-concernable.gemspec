@@ -8,8 +8,12 @@ Gem::Specification.new do |gem|
   gem.version       = Activerecord::Concernable::VERSION
   gem.authors       = ["Blake Taylor"]
   gem.email         = ["blakefrost@gmail.com"]
-  gem.description   = %q{A DSL for defining active record concerns}
-  #gem.summary       = %q{ }
+  gem.description   = %q{A DSL for defining ActiveRecord concerns}
+  gem.summary       = %q{
+    Helps keep models skinny and code understandable by making it simple to
+    define concerns and mix them into the affect class right from within the
+    concerned class. See readme for more information.
+  }
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
