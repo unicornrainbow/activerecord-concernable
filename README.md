@@ -51,6 +51,36 @@ Defining a concern.
       end
     end
 
+### Why would I want to do this?
+
+The primary reason for using the DSL is to keep active record models skinny and
+well defined and to avoid the inevitability of, for example, the monolithic User
+model.
+
+The idea is that as new models are introduced, the generally will be related,
+and therefore "concerned" with other models in the system. To a large extent,
+this is the very point of relational data and activerecord. This creates real
+pain points at the cruxes of the domain model, User being the prime example in
+many case. I refer to these classes as "Core Classes" or "Tier I". There can be
+multiple Tiers in the system, depending on how stratified the system is.
+
+The reason for pain points is because with each new model introduced to the
+system, which is concerned with one of these Core objects, there is generally an
+inverse relationship (and functionality) of the Core class now being concerned
+with it. The commonality is that prior to the new class (and concern), the core
+class could have cared less, but now it's required to become a dumping ground
+for the additional functionality.
+
+The simple solution, is to not add additional code to the centralized definition
+of the core class when adding a new associated class, but to instead add a
+concern that will be mixed in. This is essentially what the DSL does, but takes
+things a few steps further, by allowing you to easily nest the concern
+definition right inside the dependent model and then allowing you to mix it into
+the dependant classes by default.
+
+At the end of the day, activerecord-concernable allows you to move associated
+functionality around interrelated classes to keep an even distribution of code
+with no lumps.
 
 ## Contributing
 
