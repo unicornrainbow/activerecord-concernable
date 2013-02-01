@@ -4,17 +4,13 @@ A DSL for defining ActiveRecord concerns.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+**Detour:** Because or the recent Rubygems vulnerability exploit they are not
+currently able to accept new gems. I've decided to release this gem in the mean
+time anyway. I will deploy it ruby-gems as soon as possible. In them meantime,
+you can use bundler to install directly from github.
 
-    gem 'activerecord-concernable'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install activerecord-concernable
+    # File: Gemfile
+    gem "activerecord-concernable", "~> 0.4.0", :git => "git://github.com/blakefrost/activerecord-concernable.git"
 
 ## Usage
 
