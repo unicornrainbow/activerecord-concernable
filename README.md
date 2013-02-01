@@ -18,12 +18,11 @@ Or install it yourself as:
 
 ## Usage
 
-The concernable DSL is available from within any object that inherits from
-ActiveRecord::Base. The DSL consist of a single command `concern`. Use this
-command to define concerns for the object. The body of the concern follows the
-same rules that of ActiveSupport::Concern.
+The Concernable DSL is available within any ActiveRecord::Base. The DSL consist
+of a single command `concern`. Use it to define concerns for the object. The
+body of the concern follows the same rules that of [ActiveSupport::Concern][1].
 
-Defining a concern.
+Defining concerns:
 
     class Notification < ActiveRecord::Base
 
@@ -31,7 +30,7 @@ Defining a concern.
       belongs_to :notifiable, polymorphic: true
 
       # Extend user with has_many :notifications. When concern is passed a class
-      # the generated concern will automatically be mixed into the class.
+      # the generated concern will automatically be mixed into that class.
       concern User do
         included do
           has_many :notifications
@@ -39,9 +38,9 @@ Defining a concern.
       end
 
       # Create a named concern by passing a symbol. Mix into any number of
-      # classes by passing them to of.
+      # classes by passing them as `:of` in the options hash.
       concern :notifiable, of: [Comments, Posts] do
-        include do
+        included do
           has_many :notifications, as: :subject, dependent: :destroy
         end
 
@@ -53,34 +52,24 @@ Defining a concern.
 
 ### Why would I want to do this?
 
-The primary reason for using the DSL is to keep active record models skinny and
-well defined and to avoid the inevitability of, for example, the monolithic User
-model.
+The primary reason for using the DSL is to keep ActiveRecord models skinny and
+well defined, and to avoid the inevitability of monolithic model object (1000
+line user.rb anyone?).
 
-The idea is that as new models are introduced, the generally will be related,
-and therefore "concerned" with other models in the system. To a large extent,
-this is the very point of relational data and activerecord. This creates real
-pain points at the cruxes of the domain model, User being the prime example in
-many case. I refer to these classes as "Core Classes" or "Tier I". There can be
-multiple Tiers in the system, depending on how stratified the system is.
+The idea is that as new models are introduced, they will often be related, and
+therefore "concerned" with other models in the system. To a large extent, this
+is the very point of relational data and ActiveRecord. Unfortunately, This
+creates pain points at the cruxes of the domain model. New objects are concerned
+with the popular objects, and the popular objects accumulate the inverse
+concerns and functionality.
 
-The reason for pain points is because with each new model introduced to the
-system, which is concerned with one of these Core objects, there is generally an
-inverse relationship (and functionality) of the Core class now being concerned
-with it. The commonality is that prior to the new class (and concern), the core
-class could have cared less, but now it's required to become a dumping ground
-for the additional functionality.
+Concern modules can solve this problem is by allowing you to avoid adding
+additional code to the centralized definition of the core class when adding a
+new associated class. Instead, you simply add a concern and mix it in.
 
-The simple solution, is to not add additional code to the centralized definition
-of the core class when adding a new associated class, but to instead add a
-concern that will be mixed in. This is essentially what the DSL does, but takes
-things a few steps further, by allowing you to easily nest the concern
-definition right inside the dependent model and then allowing you to mix it into
-the dependant classes by default.
-
-At the end of the day, activerecord-concernable allows you to move associated
-functionality around interrelated classes to keep an even distribution of code
-with no lumps.
+This is essentially what the DSL does, but takes things a few steps further, by
+allowing you to easily nest the concern definition right inside the dependent
+model and then mix into the dependant classes unobtrusively.
 
 ## Contributing
 
@@ -89,3 +78,6 @@ with no lumps.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+
+[1]: http://api.rubyonrails.org/classes/ActiveSupport/Concern.html
