@@ -4,12 +4,17 @@ A DSL for defining ActiveRecord concerns.
 
 ## Installation
 
-**Detour:** Because or the recent Rubygems vulnerability exploit, they're not
-currently accepting new gems so I haven't been able to publish it. In the mean
-time, you can install the gem with bundler as follow.
+Add this line to your application's Gemfile:
 
-    # File: ./Gemfile
-    gem "activerecord-concernable", "~> 0.4.0", :git => "git://github.com/blakefrost/activerecord-concernable.git"
+    gem 'activerecord-concernable'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install activerecord-concernable
 
 ## Usage
 
