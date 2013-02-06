@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
     define concerns and mix them into the affect class right from within the
     concerned class. See readme for more information.
   }
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/blakefrost/activerecord-concernable"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
